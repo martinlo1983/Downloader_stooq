@@ -1,4 +1,4 @@
-name: Download Stooq CSV
+name: Download Yahoo Finance CSV as Stooq Format
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  download-stooq:
+  download-yfinance:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Download Stooq CSV files
-        run: python download_stooq_csv.py
+      - name: Download CSV files
+        run: python download_yfinance_as_stooq.py
 
       - name: Commit updated CSV files
         run: |
@@ -35,6 +35,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No hay cambios para commitear"
           else
-            git commit -m "Update Stooq CSV data"
+            git commit -m "Update market CSV data from yfinance"
             git push
           fi
