@@ -23,7 +23,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Download CSV files
-        run: python download_yfinance_as_stooq.py
+        run: python download_stooq_csv.py
 
       - name: Commit updated CSV files
         run: |
