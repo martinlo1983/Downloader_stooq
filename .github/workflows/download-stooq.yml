@@ -1,0 +1,40 @@
+name: Download Stooq CSV
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download-stooq:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download Stooq CSV files
+        run: python download_stooq_csv.py
+
+      - name: Commit updated CSV files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add data/stooq/*.csv
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios para commitear"
+          else
+            git commit -m "Update Stooq CSV data"
+            git push
+          fi
