@@ -13,9 +13,40 @@ import yfinance as yf
 #
 # El nombre final replica el formato que venías usando de Stooq.
 TICKERS = {
-    "ACWI": "acwi_us_m.csv",
     "SPY": "spy_us_m.csv",
+    "VEA": "vea_us_m.csv",
+    "EEM": "eem_us_m.csv",
+    "IEMG": "iemg_us_m.csv",
+    "IWM": "iwm_us_m.csv",
+    "IVV": "ivv_us_m.csv",
     "QQQ": "qqq_us_m.csv",
+    "VGT": "vgt_us_m.csv",
+    "SMH": "smh_us_m.csv",
+    "IGV": "igv_us_m.csv",
+    "IBB": "ibb_us_m.csv",
+    "EWJ": "ewj_us_m.csv",
+    "EFA": "efa_us_m.csv",
+    "IEUR": "ieur_us_m.csv",
+    "ILF": "ilf_us_m.csv",
+    "VGK": "vgk_us_m.csv",
+    "INDA": "inda_us_m.csv",
+    "FXI": "fxi_us_m.csv",
+    "EWZ": "ewz_us_m.csv",
+    "XLE": "xle_us_m.csv",
+    "XLF": "xlf_us_m.csv",
+    "XLV": "xlv_us_m.csv",
+    "XLP": "xlp_us_m.csv",
+    "ITA": "ita_us_m.csv",
+    "XLU": "xlu_us_m.csv",
+    "MTUM": "mtum_us_m.csv",
+    "DIA": "dia_us_m.csv",
+    "IJH": "ijh_us_m.csv",
+    "IVE": "ive_us_m.csv",
+    "GLD": "gld_us_m.csv",
+    "SLV": "slv_us_m.csv",
+    "XME": "xme_us_m.csv",
+    "URA": "ura_us_m.csv",
+    "USO": "uso_us_m.csv",
 }
 
 # Intervalos yfinance:
@@ -167,8 +198,19 @@ def download_one(ticker_yahoo: str, output_filename: str):
     print(f"Hasta: {df_out['Date'].iloc[-1]}")
     print(f"Archivo: {output_path}")
 
+def clean_output_directory():
+    if OUTPUT_DIR.exists():
+        print(f"\nLimpiando carpeta: {OUTPUT_DIR}")
+        for file in OUTPUT_DIR.glob("*.csv"):
+            print(f"Eliminando: {file}")
+            file.unlink()
+    else:
+        print(f"\nCreando carpeta: {OUTPUT_DIR}")
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
 
 def main():
+    clean_output_directory()
     debug_print("CONFIGURACION GENERAL")
     print(f"Tickers configurados: {TICKERS}")
     print(f"Output dir: {OUTPUT_DIR}")
